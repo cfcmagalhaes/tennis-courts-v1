@@ -10,51 +10,51 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping( "tennis-courts" )
+@RequestMapping( "tennisCourts" )
 public class TennisCourtController extends BaseRestController
 {
 
     private final TennisCourtService tennisCourtService;
 
     @GetMapping
-    @ApiOperation( value = "List all Tennis Court" )
-    public ResponseEntity<List<TennisCourtDTO>> findAllTennisCourts( )
+    @ApiOperation( value = "List all Tennis Courts" )
+    public ResponseEntity<List<TennisCourtDTO>> listAll( )
     {
-	return ResponseEntity.ok( tennisCourtService.findAll( ) );
+	return ResponseEntity.ok( tennisCourtService.listAll( ) );
     }
 
     @GetMapping( "/{tennisCourtId}" )
-    @ApiOperation( value = "Find tennis court by id" )
-    public ResponseEntity<TennisCourtDTO> findTennisCourtById( @PathVariable Long tennisCourtId )
+    @ApiOperation( value = "Find Tennis Court by id" )
+    public ResponseEntity<TennisCourtDTO> listById( @PathVariable Long tennisCourtId )
     {
-	return ResponseEntity.ok( tennisCourtService.findById( tennisCourtId ) );
+	return ResponseEntity.ok( tennisCourtService.listById( tennisCourtId ) );
     }
 
     @PostMapping
-    @ApiOperation( value = "Add a tennis court" )
-    public ResponseEntity<Void> addTennisCourt( @RequestBody TennisCourtDTO tennisCourtDTO )
+    @ApiOperation( value = "Add a Tennis Court" )
+    public ResponseEntity<Void> add( @RequestBody TennisCourtDTO tennisCourtDTO )
     {
 	return ResponseEntity.created( locationByEntity( tennisCourtService.add( tennisCourtDTO ).getId( ) ) ).build( );
     }
 
     @PutMapping
-    @ApiOperation( value = "Update a tennis court" )
-    public ResponseEntity<TennisCourtDTO> updateTennisCourt( @RequestBody TennisCourtDTO tennisCourtDTO )
+    @ApiOperation( value = "Update a Tennis Court" )
+    public ResponseEntity<TennisCourtDTO> update( @RequestBody TennisCourtDTO tennisCourtDTO )
     {
 	return ResponseEntity.ok( tennisCourtService.update( tennisCourtDTO ) );
     }
 
     @DeleteMapping( "/{tennisCourtId}" )
-    @ApiOperation( value = "Delete a tennis court" )
-    public ResponseEntity<Void> deleteTennisCourt( @PathVariable Long tennisCourtId )
+    @ApiOperation( value = "Delete a Tennis Court" )
+    public ResponseEntity<Void> delete( @PathVariable Long tennisCourtId )
     {
 	tennisCourtService.delete( tennisCourtId );
 	return ResponseEntity.ok( ).build( );
     }
 
     @GetMapping( "/{tennisCourtId}/schedules" )
-    @ApiOperation( value = "Find schedules for a tennis court" )
-    public ResponseEntity<TennisCourtDTO> findTennisCourtWithSchedulesById( @PathVariable Long tennisCourtId )
+    @ApiOperation( value = "Find Tennis Court with schedules" )
+    public ResponseEntity<TennisCourtDTO> findByIdWithSchedules( @PathVariable Long tennisCourtId )
     {
 	return ResponseEntity.ok( tennisCourtService.findByIdWithSchedules( tennisCourtId ) );
     }

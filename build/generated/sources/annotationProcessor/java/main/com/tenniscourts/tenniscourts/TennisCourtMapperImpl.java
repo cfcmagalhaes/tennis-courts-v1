@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-01-29T21:08:59-0300",
-    comments = "version: 1.2.0.Final, compiler: javac, environment: Java 11.0.14 (Amazon.com Inc.)"
+    date = "2022-02-08T22:33:23-0300",
+    comments = "version: 1.2.0.Final, compiler: javac, environment: Java 11.0.13 (JetBrains s.r.o.)"
 )
 @Component
 public class TennisCourtMapperImpl implements TennisCourtMapper {
@@ -28,20 +28,6 @@ public class TennisCourtMapperImpl implements TennisCourtMapper {
     }
 
     @Override
-    public TennisCourt map(TennisCourtDTO source) {
-        if ( source == null ) {
-            return null;
-        }
-
-        TennisCourt tennisCourt = new TennisCourt();
-
-        tennisCourt.setId( source.getId() );
-        tennisCourt.setName( source.getName() );
-
-        return tennisCourt;
-    }
-
-    @Override
     public List<TennisCourtDTO> map(List<TennisCourt> source) {
         if ( source == null ) {
             return null;
@@ -53,5 +39,19 @@ public class TennisCourtMapperImpl implements TennisCourtMapper {
         }
 
         return list;
+    }
+
+    @Override
+    public TennisCourt map(TennisCourtDTO source) {
+        if ( source == null ) {
+            return null;
+        }
+
+        TennisCourt tennisCourt = new TennisCourt();
+
+        tennisCourt.setId( source.getId() );
+        tennisCourt.setName( source.getName() );
+
+        return tennisCourt;
     }
 }

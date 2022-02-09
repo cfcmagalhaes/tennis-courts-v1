@@ -1,17 +1,20 @@
 package com.tenniscourts.reservations;
 
 import com.tenniscourts.guests.Guest;
+import com.tenniscourts.guests.GuestDTO;
 import com.tenniscourts.schedules.Schedule;
 import com.tenniscourts.schedules.ScheduleDTO;
 import com.tenniscourts.tenniscourts.TennisCourt;
 import com.tenniscourts.tenniscourts.TennisCourtDTO;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-01-29T21:08:59-0300",
-    comments = "version: 1.2.0.Final, compiler: javac, environment: Java 11.0.14 (Amazon.com Inc.)"
+    date = "2022-02-08T22:33:23-0300",
+    comments = "version: 1.2.0.Final, compiler: javac, environment: Java 11.0.13 (JetBrains s.r.o.)"
 )
 @Component
 public class ReservationMapperImpl implements ReservationMapper {
@@ -25,6 +28,7 @@ public class ReservationMapperImpl implements ReservationMapper {
         Reservation reservation = new Reservation();
 
         reservation.setId( source.getId() );
+        reservation.setGuest( guestDTOToGuest( source.getGuest() ) );
         reservation.setSchedule( scheduleDTOToSchedule( source.getSchedule() ) );
         reservation.setValue( source.getValue() );
         if ( source.getReservationStatus() != null ) {
@@ -44,6 +48,7 @@ public class ReservationMapperImpl implements ReservationMapper {
         ReservationDTO reservationDTO = new ReservationDTO();
 
         reservationDTO.setId( source.getId() );
+        reservationDTO.setGuest( guestToGuestDTO( source.getGuest() ) );
         reservationDTO.setSchedule( scheduleToScheduleDTO( source.getSchedule() ) );
         if ( source.getReservationStatus() != null ) {
             reservationDTO.setReservationStatus( source.getReservationStatus().name() );
@@ -66,6 +71,33 @@ public class ReservationMapperImpl implements ReservationMapper {
         reservation.setSchedule( createReservationRequestDTOToSchedule( source ) );
 
         return reservation;
+    }
+
+    @Override
+    public List<ReservationDTO> map(List<Reservation> source) {
+        if ( source == null ) {
+            return null;
+        }
+
+        List<ReservationDTO> list = new ArrayList<ReservationDTO>( source.size() );
+        for ( Reservation reservation : source ) {
+            list.add( map( reservation ) );
+        }
+
+        return list;
+    }
+
+    protected Guest guestDTOToGuest(GuestDTO guestDTO) {
+        if ( guestDTO == null ) {
+            return null;
+        }
+
+        Guest guest = new Guest();
+
+        guest.setId( guestDTO.getId() );
+        guest.setName( guestDTO.getName() );
+
+        return guest;
     }
 
     protected TennisCourt tennisCourtDTOToTennisCourt(TennisCourtDTO tennisCourtDTO) {
@@ -94,6 +126,19 @@ public class ReservationMapperImpl implements ReservationMapper {
         schedule.setEndDateTime( scheduleDTO.getEndDateTime() );
 
         return schedule;
+    }
+
+    protected GuestDTO guestToGuestDTO(Guest guest) {
+        if ( guest == null ) {
+            return null;
+        }
+
+        GuestDTO guestDTO = new GuestDTO();
+
+        guestDTO.setId( guest.getId() );
+        guestDTO.setName( guest.getName() );
+
+        return guestDTO;
     }
 
     protected TennisCourtDTO tennisCourtToTennisCourtDTO(TennisCourt tennisCourt) {

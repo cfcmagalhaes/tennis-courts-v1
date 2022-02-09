@@ -14,7 +14,8 @@ public class GuestService
 
     private final GuestRepository guestRepository;
 
-    @Getter private final GuestMapper guestMapper;
+    @Getter
+    private final GuestMapper guestMapper;
 
     public List<GuestDTO> findAll( )
     {

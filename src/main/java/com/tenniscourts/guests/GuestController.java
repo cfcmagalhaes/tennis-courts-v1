@@ -13,47 +13,46 @@ import java.util.List;
 @RequestMapping( "/guests" )
 public class GuestController extends BaseRestController
 {
-
     private final GuestService guestService;
 
     @GetMapping
     @ApiOperation( value = "List all guests" )
-    public ResponseEntity<List<GuestDTO>> findAllGuests( )
+    public ResponseEntity<List<GuestDTO>> listAll( )
     {
 	return ResponseEntity.ok( guestService.findAll( ) );
     }
 
     @GetMapping( "/{guestId}" )
     @ApiOperation( value = "Find a guest by id" )
-    public ResponseEntity<GuestDTO> findGuestById( @PathVariable Long guestId )
+    public ResponseEntity<GuestDTO> listById( @PathVariable Long guestId )
     {
 	return ResponseEntity.ok( guestService.findById( guestId ) );
     }
 
     @GetMapping( "/guest" )
     @ApiOperation( value = "Find a guest by name" )
-    public ResponseEntity<GuestDTO> findGuestByName( @RequestParam( value = "name" ) String guestName )
+    public ResponseEntity<GuestDTO> listByName( @RequestParam( value = "name" ) String guestName )
     {
 	return ResponseEntity.ok( guestService.findByName( guestName ) );
     }
 
     @PostMapping
     @ApiOperation( value = "Add a guest" )
-    public ResponseEntity<GuestDTO> addGuest( @RequestBody GuestDTO guestDTO )
+    public ResponseEntity<GuestDTO> add( @RequestBody GuestDTO guestDTO )
     {
 	return ResponseEntity.ok( guestService.add( guestDTO ) );
     }
 
     @PutMapping
     @ApiOperation( value = "Update a guest" )
-    public ResponseEntity<GuestDTO> updateGuest( @RequestBody GuestDTO guestDTO )
+    public ResponseEntity<GuestDTO> update( @RequestBody GuestDTO guestDTO )
     {
 	return ResponseEntity.ok( guestService.update( guestDTO ) );
     }
 
     @DeleteMapping( "/{guestId}" )
     @ApiOperation( value = "Delete a guest" )
-    public ResponseEntity<Void> deleteGuest( @PathVariable Long guestId )
+    public ResponseEntity<Void> delete( @PathVariable Long guestId )
     {
 	guestService.delete( guestId );
 	return ResponseEntity.ok( ).build( );

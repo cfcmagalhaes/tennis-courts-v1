@@ -18,12 +18,12 @@ public class TennisCourtService
 
     private final TennisCourtMapper tennisCourtMapper;
 
-    public List<TennisCourtDTO> findAll( )
+    public List<TennisCourtDTO> listAll( )
     {
 	return tennisCourtMapper.map( tennisCourtRepository.findAll( ) );
     }
 
-    public TennisCourtDTO findById( Long id )
+    public TennisCourtDTO listById( Long id )
     {
 	return tennisCourtRepository.findById( id ).map( tennisCourtMapper::map ).orElseThrow( ( ) -> {
 	    throw new EntityNotFoundException( "Tennis Court not found." );
@@ -37,22 +37,23 @@ public class TennisCourtService
 
     public TennisCourtDTO update( TennisCourtDTO tennisCourtDTO )
     {
-	findById( tennisCourtDTO.getId( ) );
-        TennisCourt tennisCourt = tennisCourtRepository.save( tennisCourtMapper.map( tennisCourtDTO ) );
+	listById( tennisCourtDTO.getId( ) );
+	TennisCourt tennisCourt = tennisCourtRepository.save( tennisCourtMapper.map( tennisCourtDTO ) );
 
 	return tennisCourtMapper.map( tennisCourt );
     }
 
     public void delete( Long tennisCourtId )
     {
-        findById( tennisCourtId );
-        tennisCourtRepository.deleteById( tennisCourtId );
+	listById( tennisCourtId );
+	tennisCourtRepository.deleteById( tennisCourtId );
     }
 
     public TennisCourtDTO findByIdWithSchedules( Long tennisCourtId )
     {
-	TennisCourtDTO tennisCourtDTO = findById( tennisCourtId );
-	tennisCourtDTO.setTennisCourtSchedules( scheduleService.findSchedulesByTennisCourtId( tennisCourtId ) );
+	TennisCourtDTO tennisCourtDTO = listById( tennisCourtId );
+	tennisCourtDTO.setTennisCourtSchedules( scheduleService.listByTennisCourtId( tennisCourtId ) );
+
 	return tennisCourtDTO;
     }
 }
